@@ -18,10 +18,10 @@ svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-lin
 [hidden]{display:none!important}
 :focus-visible{outline:2px solid #fff;outline-offset:2px}
 
-.bar{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;min-height:64px;padding-top:env(safe-area-inset-top);background:var(--bar);box-shadow:0 2px 12px rgba(0,0,0,.45)}
-.bar h1{margin:0;font-size:clamp(14px,3.9vw,20px);font-weight:700;color:#fff;line-height:1.2}
+.bar{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,auto) minmax(100px,1fr);align-items:center;min-height:64px;padding-top:env(safe-area-inset-top);background:var(--bar);box-shadow:0 2px 12px rgba(0,0,0,.45)}
+.bar h1{margin:0;text-align:center;font-size:clamp(14px,3.1vw,30px);font-weight:700;color:#fff;line-height:1.15}
 .titulos{min-width:0;padding:6px 8px}
-.titulos p{margin:2px 0 0;font-size:clamp(11px,2.9vw,13px);line-height:1.2;color:rgba(255,255,255,.85)}
+.titulos p{margin:3px 0 0;text-align:center;font-size:clamp(10.5px,2vw,15px);line-height:1.2;color:rgba(255,255,255,.85)}
 .bar-lado{display:flex;align-items:center;gap:6px;min-width:0}
 .bar-lado.dir{justify-content:flex-end;padding-right:12px}
 .simbolo{display:block;width:clamp(40px,11vw,52px);height:auto;aspect-ratio:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
@@ -63,6 +63,8 @@ button.btn{width:100%;padding:0;background:none;border:0}
 .dot.ok{background:#27b868}.dot.warn{background:#e4962a}.dot.err{background:#e04a4a}
 .recarregar{width:34px;height:34px;display:grid;place-items:center;flex:none;background:#232020;border:1px solid var(--line);border-radius:9px;font-size:15px}
 .recarregar:disabled{opacity:.5;cursor:wait}
+@media (max-width:480px){.bar{grid-template-columns:86px minmax(0,1fr) 86px}.burger{width:36px;margin-left:4px;font-size:26px}.bar-lado{gap:4px}.bar-lado.dir{padding-right:6px}.simbolo{width:38px}}
+@media (min-width:768px) and (min-height:521px){.bar{min-height:84px}.simbolo{width:66px}}
 @media (orientation:portrait){body::before{background-image:linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.3)),url(fundo-celular.jpg)}}
 @media (orientation:landscape) and (max-height:520px){.grid{grid-template-columns:repeat(5,minmax(0,1fr));width:min(860px,100%);gap:20px 10px;padding:18px 12px 24px}.btn{gap:8px}.btn img{width:min(100%,96px)}.bar{min-height:52px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
