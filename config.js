@@ -5,5 +5,6 @@ window.PAINEL_CONFIG = {
   planilhaCsv: "",
 
   tituloAba: "Gestão Integrada - 1ºSGB",
-  titulo: "GESTÃO INTEGRADA - 1ºSGB"
+  titulo: "1º Subgrupamento de Bombeiros · 15º GB",
+  subtitulo: "Corpo de Bombeiros da Polícia Militar do Estado de São Paulo"
 };
