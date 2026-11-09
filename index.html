@@ -18,9 +18,10 @@ svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-lin
 [hidden]{display:none!important}
 :focus-visible{outline:2px solid #fff;outline-offset:2px}
 
-.bar{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,auto) minmax(100px,1fr);align-items:center;min-height:64px;padding-top:env(safe-area-inset-top);background:var(--bar);box-shadow:0 2px 12px rgba(0,0,0,.45)}
-.bar h1{margin:0;text-align:center;font-size:clamp(15px,4.7vw,24px);font-weight:700;letter-spacing:.01em;color:#fff}
-.bar h1{padding:0 6px;line-height:1.15}
+.bar{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;min-height:64px;padding-top:env(safe-area-inset-top);background:var(--bar);box-shadow:0 2px 12px rgba(0,0,0,.45)}
+.bar h1{margin:0;font-size:clamp(14px,3.9vw,20px);font-weight:700;color:#fff;line-height:1.2}
+.titulos{min-width:0;padding:6px 8px}
+.titulos p{margin:2px 0 0;font-size:clamp(11px,2.9vw,13px);line-height:1.2;color:rgba(255,255,255,.85)}
 .bar-lado{display:flex;align-items:center;gap:6px;min-width:0}
 .bar-lado.dir{justify-content:flex-end;padding-right:12px}
 .simbolo{display:block;width:clamp(40px,11vw,52px);height:auto;aspect-ratio:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
@@ -75,7 +76,7 @@ button.btn{width:100%;padding:0;background:none;border:0}
   </button>
   <img class="simbolo" src="sim-cb.png" alt="Corpo de Bombeiros">
   </div>
-  <h1 id="titulo"></h1>
+  <div class="titulos"><h1 id="titulo"></h1><p id="subtitulo"></p></div>
   <div class="bar-lado dir"><img class="simbolo" src="sim-15gb.png" alt="15º Grupamento de Bombeiros"></div>
 </header>
 
@@ -304,6 +305,7 @@ button.btn{width:100%;padding:0;background:none;border:0}
 
   document.title = C.tituloAba || C.titulo || "Portal";
   $("titulo").textContent = C.titulo || "";
+  $("subtitulo").textContent = C.subtitulo || "";
   $("abrir").addEventListener("click", function () { menu(true); });
   $("fechar").addEventListener("click", function () { menu(false); });
   $("veu").addEventListener("click", function () { menu(false); });
