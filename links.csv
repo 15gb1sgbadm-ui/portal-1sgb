@@ -1,10 +1,10 @@
 ativo,categoria,titulo,url,icone
-SIM,Administração,Administração 1ºSGB,,pasta
+SIM,Administração,Administração 1ºSGB,https://15gb1sgbadm-ui.github.io/EFETIVO-1.SGB/,pasta
 SIM,Viaturas,Abastecimento de Vtr,,abastecimento
 SIM,Viaturas,Check-list DIÁRIO Vtr,,checklist
 SIM,Viaturas,Check-list SEMANAL Vtr,,semanal
 SIM,Escalas,Escalas DEJEM,https://15gb1sgbadm-ui.github.io/dejem-escalas/,dejem
-SIM,Escalas,Confirmação DEJEM,,confirmacao
-SIM,Pessoal e materiais,Gestão Efetivo - Cmt Prontidão,https://15gb1sgbadm-ui.github.io/EFETIVO-1.SGB/,pessoas
-SIM,Escalas,CMT PRONTIDÃO - 1ºSGB,,calendario
+SIM,Escalas,Confirmação DEJEM,https://forms.gle/BmMBZzPQBcFszpVq7,confirmacao
+SIM,Pessoal e materiais,Gestão Efetivo - Cmt Prontidão,https://15gb1sgbadm-ui.github.io/efetivo1.SGB/,pessoas
+SIM,Escalas,CMT PRONTIDÃO - 1ºSGB,https://drive.google.com/drive/folders/10exFEVb6KCoCO51GkDkBzKLdN8YaOmI9?usp=sharing,calendario
 SIM,Pessoal e materiais,Almoxarifado e Materiais 1ºSGB,https://15gb1sgbadm-ui.github.io/1SGBalmoxarifado/,caixa
