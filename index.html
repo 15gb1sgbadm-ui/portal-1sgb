@@ -29,12 +29,16 @@ svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-lin
 .grid li{min-width:0}
 .btn{display:flex;flex-direction:column;align-items:center;gap:13px;color:var(--ink);text-decoration:none;text-align:center;border-radius:14px}
 .btn img{display:block;width:min(100%,150px);height:auto;aspect-ratio:1;border-radius:50%;box-shadow:0 8px 18px rgba(0,0,0,.65);transition:transform .14s,filter .14s}
-a.btn:hover img{transform:scale(1.04);filter:brightness(1.12)}
-a.btn:active img{transform:scale(.95)}
+.btn:not(.off):hover img{transform:scale(1.04);filter:brightness(1.12)}
+.btn:not(.off):active img{transform:scale(.95)}
 .btn span{font-size:clamp(13px,3.6vw,17px);text-shadow:0 1px 4px #000;overflow-wrap:anywhere}
 .btn small{font-size:11px;color:var(--muted);margin-top:-8px}
 .off img{filter:grayscale(.75) brightness(.62)}
 .off span{color:var(--muted)}
+button.btn{width:100%;padding:0;background:none;border:0}
+.trilha{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;width:min(660px,100%);margin:0 auto;padding:18px 12px 0}
+.trilha button{justify-self:start;display:inline-flex;align-items:center;gap:6px;background:rgba(20,18,17,.82);border:1px solid var(--line);border-radius:99px;padding:8px 14px;font-size:14px}
+.trilha h2{margin:0;font-size:clamp(16px,4.4vw,20px);font-weight:700;text-align:center;text-shadow:0 1px 4px #000}
 .nada{text-align:center;padding:60px 20px;margin:0;text-shadow:0 1px 4px #000}
 
 .veu{position:fixed;inset:0;z-index:9;background:rgba(0,0,0,.55)}
@@ -65,6 +69,7 @@ a.btn:active img{transform:scale(.95)}
   <h1 id="titulo"></h1>
 </header>
 
+<div class="trilha" id="trilha" hidden><button type="button" id="voltar">‹ Voltar</button><h2 id="trilha-nome"></h2></div>
 <div class="filtro" id="filtro" hidden><button type="button" id="limpar"></button></div>
 <main>
   <ul class="grid" id="grade"></ul>
@@ -99,7 +104,7 @@ a.btn:active img{transform:scale(.95)}
   var ICONES = ["pasta", "abastecimento", "checklist", "semanal", "dejem", "confirmacao", "pessoas", "calendario", "caixa"];
 
   var $ = function (id) { return document.getElementById(id); };
-  var estado = { itens: [], filtro: "", categoria: null };
+  var estado = { itens: [], filtro: "", categoria: null, pasta: (history.state && history.state.pasta) || null };
 
   function norm(s) {
     return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
@@ -158,6 +163,7 @@ a.btn:active img{transform:scale(.95)}
         titulo: o.titulo,
         url: urlSegura(o.url),
         categoria: o.categoria || "Outros",
+          pasta: o.pasta || "",
         icone: ICONES.indexOf(ic) !== -1 ? ic : "pasta"
       });
     });
@@ -202,8 +208,20 @@ a.btn:active img{transform:scale(.95)}
 
   function aplicar(itens) {
     estado.itens = itens;
+    if (estado.pasta && !itens.some(function (i) { return mesma(i.pasta, estado.pasta); })) estado.pasta = null;
     if (estado.categoria && !itens.some(function (i) { return i.categoria === estado.categoria; })) estado.categoria = null;
     desenhar();
+  }
+  function mesma(a, b) { return !!a && norm(a) === norm(b); }
+  function filhos(titulo) { return estado.itens.filter(function (i) { return mesma(i.pasta, titulo) && !mesma(i.titulo, titulo); }); }
+  function ehPasta(item) { return filhos(item.titulo).length > 0; }
+  function naRaiz(item) {
+    return !item.pasta || mesma(item.titulo, item.pasta) || !estado.itens.some(function (p) { return mesma(p.titulo, item.pasta); });
+  }
+  function irPasta(titulo) {
+    history.pushState({ pasta: titulo }, "");
+    estado.pasta = titulo; estado.filtro = ""; $("busca").value = "";
+    desenhar(); window.scrollTo(0, 0); $("voltar").focus();
   }
   function porBusca() {
     var termos = norm(estado.filtro).split(/\s+/).filter(Boolean);
@@ -215,7 +233,10 @@ a.btn:active img{transform:scale(.95)}
 
   function botao(item) {
     var b;
-    if (item.url) {
+    if (ehPasta(item)) {
+      b = el("button", "btn"); b.type = "button";
+      b.onclick = function () { irPasta(item.titulo); };
+    } else if (item.url) {
       b = el("a", "btn");
       b.href = item.url; b.target = "_blank"; b.rel = "noopener noreferrer";
     } else {
@@ -226,13 +247,17 @@ a.btn:active img{transform:scale(.95)}
     img.src = "ic-" + item.icone + ".png"; img.alt = ""; img.width = 150; img.height = 150;
     b.appendChild(img);
     b.appendChild(el("span", "", item.titulo));
-    if (!item.url) b.appendChild(el("small", "", "sem link"));
+    if (!item.url && !ehPasta(item)) b.appendChild(el("small", "", "sem link"));
     return b;
   }
 
   function desenhar() {
-    var base = porBusca();
-    var visiveis = base.filter(function (i) { return !estado.categoria || i.categoria === estado.categoria; });
+    var buscando = !!estado.filtro.trim();
+    var naPasta = !!estado.pasta && !buscando;
+    var base = porBusca().filter(function (i) { return buscando || naRaiz(i); });
+    var visiveis = naPasta ? filhos(estado.pasta) : base.filter(function (i) { return !estado.categoria || i.categoria === estado.categoria; });
+    $("trilha").hidden = !naPasta;
+    $("trilha-nome").textContent = estado.pasta || "";
     var g = $("grade");
     g.replaceChildren();
     visiveis.forEach(function (i) { var li = el("li"); li.appendChild(botao(i)); g.appendChild(li); });
@@ -240,7 +265,7 @@ a.btn:active img{transform:scale(.95)}
     $("nada").hidden = visiveis.length > 0;
     $("nada").textContent = estado.filtro ? "Nada encontrado para essa busca." : "Nenhum acesso publicado no momento.";
 
-    var ativos = [estado.categoria, estado.filtro.trim() && "“" + estado.filtro.trim() + "”"].filter(Boolean);
+    var ativos = [!naPasta && estado.categoria, estado.filtro.trim() && "“" + estado.filtro.trim() + "”"].filter(Boolean);
     $("filtro").hidden = !ativos.length;
     $("limpar").textContent = ativos.join(" · ") + "  ✕";
 
@@ -256,7 +281,7 @@ a.btn:active img{transform:scale(.95)}
     b.setAttribute("aria-pressed", String(estado.categoria === cat));
     b.appendChild(el("span", "", rotulo));
     b.appendChild(el("em", "", String(n)));
-    b.onclick = function () { estado.categoria = cat; desenhar(); menu(false); };
+    b.onclick = function () { estado.categoria = cat; menu(false); if (estado.pasta) history.back(); else desenhar(); };
     return b;
   }
 
@@ -276,6 +301,8 @@ a.btn:active img{transform:scale(.95)}
   $("busca").addEventListener("input", function (e) { estado.filtro = e.target.value; desenhar(); });
   $("busca").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); menu(false); } });
   $("limpar").addEventListener("click", function () { estado.filtro = ""; estado.categoria = null; $("busca").value = ""; desenhar(); });
+  $("voltar").addEventListener("click", function () { history.back(); });
+  window.addEventListener("popstate", function (e) { estado.pasta = (e.state && e.state.pasta) || null; desenhar(); });
   $("recarregar").addEventListener("click", carregar);
   carregar();
 })();
