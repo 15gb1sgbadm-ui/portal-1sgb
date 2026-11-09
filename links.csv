@@ -1,6 +1,10 @@
-ativo,destaque,categoria,titulo,descricao,url,icone
-SIM,SIM,Gestão do SGB,Efetivo 1º SGB,Painel de efetivo e escala de pessoal,https://15gb1sgbadm-ui.github.io/EFETIVO-1.SGB/,pessoas
-SIM,SIM,Gestão do SGB,Escalas Dejem,Escalas de serviço Dejem,https://15gb1sgbadm-ui.github.io/dejem-escalas/,calendario
-SIM,NAO,Almoxarifado,Almoxarifado 1º SGB,Controle de materiais e estoque,https://15gb1sgbadm-ui.github.io/1SGBalmoxarifado/,caixa
-NAO,NAO,Abastecimento,1º SGB - Abastecimento,Controle de abastecimento do 1º SGB,,caminhao
-NAO,NAO,Checklists e Inspeções,1º SGB - Checklist Diário,Checklist diário de viaturas do 1º SGB,,checklist
+ativo,categoria,titulo,url,icone
+SIM,Administração,Administração 1ºSGB,,pasta
+SIM,Viaturas,Abastecimento de Vtr,,abastecimento
+SIM,Viaturas,Check-list DIÁRIO Vtr,,checklist
+SIM,Viaturas,Check-list SEMANAL Vtr,,semanal
+SIM,Escalas,Escalas DEJEM,https://15gb1sgbadm-ui.github.io/dejem-escalas/,dejem
+SIM,Escalas,Confirmação DEJEM,,confirmacao
+SIM,Pessoal e materiais,Gestão Efetivo - Cmt Prontidão,https://15gb1sgbadm-ui.github.io/EFETIVO-1.SGB/,pessoas
+SIM,Escalas,CMT PRONTIDÃO - 1ºSGB,,calendario
+SIM,Pessoal e materiais,Almoxarifado e Materiais 1ºSGB,https://15gb1sgbadm-ui.github.io/1SGBalmoxarifado/,caixa
