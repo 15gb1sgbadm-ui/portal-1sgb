@@ -18,8 +18,12 @@ svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-lin
 [hidden]{display:none!important}
 :focus-visible{outline:2px solid #fff;outline-offset:2px}
 
-.bar{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:56px 1fr 56px;align-items:center;min-height:64px;padding-top:env(safe-area-inset-top);background:var(--bar);box-shadow:0 2px 12px rgba(0,0,0,.45)}
+.bar{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,auto) minmax(100px,1fr);align-items:center;min-height:64px;padding-top:env(safe-area-inset-top);background:var(--bar);box-shadow:0 2px 12px rgba(0,0,0,.45)}
 .bar h1{margin:0;text-align:center;font-size:clamp(15px,4.7vw,24px);font-weight:700;letter-spacing:.01em;color:#fff}
+.bar h1{padding:0 6px;line-height:1.15}
+.bar-lado{display:flex;align-items:center;gap:6px;min-width:0}
+.bar-lado.dir{justify-content:flex-end;padding-right:12px}
+.simbolo{display:block;width:clamp(40px,11vw,52px);height:auto;aspect-ratio:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
 .burger{width:44px;height:44px;margin-left:8px;display:grid;place-items:center;background:none;border:0;color:#151313;font-size:30px}
 .burger svg{stroke-width:2.6}
 
@@ -36,7 +40,7 @@ svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-lin
 .off img{filter:grayscale(.75) brightness(.62)}
 .off span{color:var(--muted)}
 button.btn{width:100%;padding:0;background:none;border:0}
-.trilha{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;width:min(660px,100%);margin:0 auto;padding:18px 12px 0}
+.trilha{display:grid;grid-template-columns:minmax(84px,1fr) minmax(0,auto) minmax(84px,1fr);align-items:center;gap:10px;width:min(660px,100%);margin:0 auto;padding:18px 12px 0}
 .trilha button{justify-self:start;display:inline-flex;align-items:center;gap:6px;background:rgba(20,18,17,.82);border:1px solid var(--line);border-radius:99px;padding:8px 14px;font-size:14px}
 .trilha h2{margin:0;font-size:clamp(16px,4.4vw,20px);font-weight:700;text-align:center;text-shadow:0 1px 4px #000}
 .nada{text-align:center;padding:60px 20px;margin:0;text-shadow:0 1px 4px #000}
@@ -58,15 +62,21 @@ button.btn{width:100%;padding:0;background:none;border:0}
 .dot.ok{background:#27b868}.dot.warn{background:#e4962a}.dot.err{background:#e04a4a}
 .recarregar{width:34px;height:34px;display:grid;place-items:center;flex:none;background:#232020;border:1px solid var(--line);border-radius:9px;font-size:15px}
 .recarregar:disabled{opacity:.5;cursor:wait}
+@media (orientation:portrait){body::before{background-image:linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.3)),url(fundo-celular.jpg)}}
+@media (orientation:landscape) and (max-height:520px){.grid{grid-template-columns:repeat(5,minmax(0,1fr));width:min(860px,100%);gap:20px 10px;padding:18px 12px 24px}.btn{gap:8px}.btn img{width:min(100%,96px)}.bar{min-height:52px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <header class="bar">
+  <div class="bar-lado">
   <button class="burger" id="abrir" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
   </button>
+  <img class="simbolo" src="sim-cb.png" alt="Corpo de Bombeiros">
+  </div>
   <h1 id="titulo"></h1>
+  <div class="bar-lado dir"><img class="simbolo" src="sim-15gb.png" alt="15º Grupamento de Bombeiros"></div>
 </header>
 
 <div class="trilha" id="trilha" hidden><button type="button" id="voltar">‹ Voltar</button><h2 id="trilha-nome"></h2></div>
