@@ -1,3 +1,4 @@
+// Portal 1º SGB / 15º GB
 // Tudo o que muda de uma unidade para outra fica aqui.
 window.PAINEL_CONFIG = {
   // Link da planilha em "Arquivo > Compartilhar > Publicar na Web > CSV".
