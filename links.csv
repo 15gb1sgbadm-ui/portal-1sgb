@@ -1,7 +1,7 @@
 ativo,categoria,titulo,url,icone
 SIM,Administração,Administração 1ºSGB,https://15gb1sgbadm-ui.github.io/EFETIVO-1.SGB/,pasta
-SIM,Viaturas,Abastecimento de Vtr,,abastecimento
-SIM,Viaturas,Check-list DIÁRIO Vtr,,checklist
+SIM,Viaturas,Abastecimento de Vtr,https://docs.google.com/spreadsheets/d/1uJ1yoCNqb4EcadptvhhSe1dAch2mdiEo1T95cFobpsY/edit?usp=sharing,abastecimento
+SIM,Viaturas,Check-list DIÁRIO Vtr,https://docs.google.com/forms/d/e/1FAIpQLSe6r0nhZqBgTkVNiuZElTdGO-AiPnLpBfi8yY5p15wGz6piQw/viewform?usp=sharing&ouid=116371605190798099714,checklist
 SIM,Viaturas,Check-list SEMANAL Vtr,,semanal
 SIM,Escalas,Escalas DEJEM,https://15gb1sgbadm-ui.github.io/dejem-escalas/,dejem
 SIM,Escalas,Confirmação DEJEM,https://forms.gle/BmMBZzPQBcFszpVq7,confirmacao
